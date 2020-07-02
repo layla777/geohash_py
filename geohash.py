@@ -28,8 +28,8 @@ class Geohash:
     def __len__(self):
         return len(self._geohash)
 
-    @classmethod
-    def _validate_len(cls, length):
+    @staticmethod
+    def _validate_len(length):
         if not isinstance(length, int):
             raise TypeError('"length" must be an integer.')
         if length < 0:
@@ -43,8 +43,8 @@ class Geohash:
         if len(lat_lng) != 2:
             raise ValueError('"lat_lng" must have 2 and only 2 items')
 
-        for l in lat_lng:
-            if not isinstance(l, float) and not isinstance(l, int):
+        for item in lat_lng:
+            if not isinstance(item, float) and not isinstance(item, int):
                 raise TypeError('Items of "lat_lng" must be float or integer.')
 
     @classmethod
@@ -130,7 +130,7 @@ class Geohash:
         for i in range(0, length):
             c = self._geohash[i:i + 1]
             v = self._base_32_to_int(c)
-            for mask in [2**j for j in reversed(range(0, 5))]:
+            for mask in [2 ** j for j in reversed(range(0, 5))]:
                 if is_even:
                     if v & mask:
                         lng = [sum(lng) / 2, lng[1]]
@@ -195,7 +195,8 @@ class Geohash:
 
         return geohashes
 
-    def _normalize_angle_180(self, lng):
+    @staticmethod
+    def _normalize_angle_180(lng):
         lng %= 360
         if lng <= 180:
             return lng
@@ -214,15 +215,17 @@ class Geohash:
 
         return lat
 
-    def _bits_to_int(self, bits):
+    @staticmethod
+    def _bits_to_int(bits):
         return int(''.join(bits), 2)
 
     def _int_to_base_32(self, v):
         return self._BASE_32[v]
 
-    def _base_32_to_int(self, str):
-        return self._BASE_32.index(str)
+    def _base_32_to_int(self, c):
+        return self._BASE_32.index(c)
 
-    def _round(self, val, digit=0):
-        p = 10**digit
+    @staticmethod
+    def _round(val, digit=0):
+        p = 10 ** digit
         return (val * p * 2 + 1) // 2 / p
