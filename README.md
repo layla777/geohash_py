@@ -1,14 +1,58 @@
-# Geohash Py
+
+# GeohashPy
 
 A comprehensive Python implementation of Geohash, designed for encoding and decoding geographic coordinates into a compact geohash string. This project is based on the Geohash algorithm described in [this blog post](http://mtcn.ko-me.com/%E9%96%A2%E6%95%B0%E3%80%81%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA/geohash%E9%96%A2%E6%95%B0).
+
+## About This Project
+This project is dedicated to deepening the understanding of the Geohash algorithm and sharing that knowledge with others. The goal is not to create the "ultimate Geohash library," but rather to provide a resource for learning and exploration.
+That said, if someone—drawing inspiration from this project or others—manages to create the ultimate Geohash package, it would bring us boundless joy and satisfaction. We hope this project contributes, even in a small way, to that endeavor.
+
+## What is Geohash?
+
+Geohash is a hierarchical spatial data structure used for encoding geographic coordinates into compact strings. The key characteristics of Geohash include:
+
+- **Recursive Subdivision**: The Earth's surface is divided into smaller rectangular regions recursively, where each subdivision represents increasing levels of precision.
+- **Rectangular Regions**: Each Geohash string maps to a rectangular area on the globe. Due to the algorithm's design, some regions may be irregular in shape.
+- **Compact Representation**: Geohash strings are concise, and their length determines the level of precision.
+
+### Example of Irregular Rectangles
+
+Consider a Geohash string that represents a region spanning the equator. The division of regions sometimes results in rectangles that vary significantly in size as you move towards the poles, highlighting the irregularity.
+
+### Precision Table
+
+The table below shows the approximated resolutions for Geohash strings of different lengths:
+> **Note**: The resolutions listed in the table represent approximations near the equator. As latitude increases and approaches the poles, the longitudinal resolution (east-west direction) becomes finer due to the curvature of the Earth.
+
+| Length | Resolution (Lat x Lng)       |
+|--------|-----------------------------|
+| 1      | ±2500 km x ±5000 km         |
+| 2      | ±630 km x ±1250 km          |
+| 3      | ±78 km x ±156 km            |
+| 4      | ±20 km x ±39 km             |
+| 5      | ±2.4 km x ±4.9 km           |
+| 6      | ±610 m x ±1.2 km            |
+| 7      | ±76 m x ±152 m              |
+| 8      | ±19 m x ±38 m               |
+| 9      | ±2.4 m x ±4.8 m             |
+| 10     | ±0.6 m x ±1.2 m             |
+| 11     | ±0.07 m x ±0.15 m           |
+
+The library defaults to a precision of 11, but users can specify custom lengths depending on their requirements.
+
+### Library Design Philosophy
+
+The library accepts all valid Geohash strings, including those representing irregular rectangles. The irregularity is a natural consequence of the algorithm and is key to its flexibility in representing geographic space.
 
 ## Features
 
 - Encode geographical coordinates into a geohash string
 - Decode a geohash string back to latitude and longitude coordinates
 - Retrieve neighboring geohashes for a given geohash
+- Latitude and longitude are normalized during processing
 - Input validation for coordinates and geohash strings
 - Latitude and longitude normalization
+- Explicit examples showing how latitude and longitude are normalized during processing
 
 ## Installation
 
@@ -22,14 +66,13 @@ cd geohash_py
 No additional dependencies are required since this is a pure Python implementation.
 
 ## Usage
-
-Here's how you can use the `Geohash` class to encode and decode geohashes.
+Here's how you can use the `Geohash` class to encode, decode, and normalize geohashes, initialize them with specific values, and understand latitude and longitude normalization.
 
 ### Initializing a Geohash Object
 
-You can initialize a `Geohash` object either by providing geographic coordinates or by providing a geohash string.
+The `Geohash` object should be initialized using one of the recommended methods:
 
-#### Using Latitude and Longitude
+#### **Recommended**: Using Latitude and Longitude (`init_with_lat_lng`)
 
 ```python
 from geohash import Geohash
@@ -37,17 +80,17 @@ from geohash import Geohash
 # Initialize with latitude and longitude
 lat_lng = [37.7749, -122.4194]  # San Francisco, CA
 length = 8
-geohash_obj = Geohash(lat_lng=lat_lng, length=length)
-print("Generated geohash:", geohash_obj.get_geohash())
+gh = Geohash.init_with_lat_lng(lat_lng=lat_lng, length=length)
+print('Generated geohash:', gh.get_geohash())
 ```
 
-#### Using a Geohash String
+#### **Recommended**: Using a Geohash String (`init_with_geohash`)
 
 ```python
 # Initialize with a geohash string
 geohash_str = '9q8yy'
-geohash_obj = Geohash(geohash=geohash_str)
-print("Geohash:", geohash_obj.get_geohash())
+gh = Geohash.init_with_geohash(geohash_str)
+print('Geohash:', gh.get_geohash())
 ```
 
 ### Encoding Coordinates
@@ -57,8 +100,8 @@ You can encode new coordinates into the existing geohash object:
 ```python
 # Encode new coordinates
 new_lat_lng = [34.0522, -118.2437]  # Los Angeles, CA
-geohash_obj.encode_with_lat_lng(new_lat_lng, length)
-print("New geohash:", geohash_obj.get_geohash())
+gh.encode_with_lat_lng(new_lat_lng, length)
+print('New geohash:', gh.get_geohash())
 ```
 
 ### Decoding a Geohash
@@ -67,9 +110,13 @@ You can decode a geohash string back into latitude and longitude:
 
 ```python
 # Decode geohash
-lat_lng = geohash_obj.decode()
-print("Decoded coordinates:", lat_lng)
+lat_lng = gh.decode()
+print('Decoded coordinates:', lat_lng)
 ```
+
+### Latitude and Longitude Normalization
+
+Latitude and longitude values are automatically adjusted to ensure they fall within valid ranges. See [Technical Details](#technical-details).
 
 ### Getting Neighboring Geohashes
 
@@ -77,25 +124,21 @@ You can retrieve neighboring geohashes for a given geohash:
 
 ```python
 # Get neighbors
-neighbors = geohash_obj.neighbors(order=1)
-print("Neighboring geohashes:", neighbors)
+neighbors = gh.neighbors(order=1)
+print('Neighboring geohashes:', neighbors)
 ```
 
 ## API Reference
 
 ### Geohash
 
-#### `__init__` method
+#### `__init__` method *(Internal Use Only)*
 
 ```python
-__init__(lat_lng: List[Union[float, int]] = None, length: int = 11, geohash: str = 's0000000000')
+__init__()
 ```
 
-Initialize a Geohash object.
-
-- `lat_lng`: List containing latitude and longitude.
-- `length`: The desired length of the geohash string.
-- `geohash`: A geohash string.
+This internal constructor initializes a Geohash object with the default geohash value `'s0000000000'`. Direct usage is discouraged; use `init_with_lat_lng` or `init_with_geohash` for custom initialization.
 
 #### `get_geohash` method
 
@@ -145,7 +188,22 @@ neighbors(order: int = 1) -> List[str]
 
 Returns a list of neighboring geohashes around the current geohash.
 
+## Technical Details
+
+### Latitude and Longitude Normalization
+
+- **Longitude Normalization**: Longitude values are wrapped within the range of -180 to 180 degrees using modular arithmetic. For example:
+  - A longitude of `190` normalizes to `-170`.
+  - A longitude of `-200` normalizes to `160`.
+
+- **Latitude Normalization**: Latitude values are wrapped within the range of -90 to 90 degrees. If the value exceeds these bounds, it "bounces back" toward the center by reflecting over the boundary. For example:
+  - A latitude of `-95` normalizes to `-85`.
+  - A latitude of `100` normalizes to `80`.
+
+This ensures realistic and accurate representation of geographic coordinates on the globe.
+
 ## License
+
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
