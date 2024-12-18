@@ -1,3 +1,36 @@
+
+'''
+Script Name: Geohash Precision Test
+
+Purpose:
+This script analyzes the precision of geohashes by observing how the latitude
+and longitude intervals shrink with increasing geohash resolution. The analysis
+is further visualized using a plot, showing the shrinking rates (on a logarithmic
+scale) for latitude and longitude intervals as the geohash string length increases.
+
+Usage Instructions:
+1. Ensure you have Python 3.12.8 installed.
+2. Install the required dependencies using pip:
+   pip install matplotlib numpy
+3. Execute the script in your IDE or terminal.
+   python geohash_precision_test.py
+4. The script outputs the shrinking rates and geohash ranges for each substring
+   in the terminal and plots a graph showing the shrinking rates of geohash intervals.
+
+Dependencies:
+- matplotlib
+- numpy
+- A Python geohash library
+
+Expected Output:
+- The script will print geohash intervals (latitude and longitude) and their shrinking rates.
+- A plot visualizing the shrinking rates will be displayed.
+
+Why It's Useful:
+This script is useful for understanding the mechanics of geohash precision and
+how geohash resolution improves geographic encoding accuracy. It provides insights
+for educational purposes as well as practical applications in geospatial data analysis.
+'''
 # Import required modules
 from geohash import *
 import matplotlib.pyplot as plt
