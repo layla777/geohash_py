@@ -1,5 +1,4 @@
-
-'''
+"""
 Script Name: Geohash Precision Test
 
 Purpose:
@@ -30,10 +29,11 @@ Why It's Useful:
 This script is useful for understanding the mechanics of geohash precision and
 how geohash resolution improves geographic encoding accuracy. It provides insights
 for educational purposes as well as practical applications in geospatial data analysis.
-'''
+"""
+import matplotlib.pyplot as plt
+
 # Import required modules
 from geohash import *
-import matplotlib.pyplot as plt
 
 # Define the Geohash string to test precision
 geohash = 'ezs42e44yxpy'
