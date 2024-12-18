@@ -4,8 +4,11 @@
 A comprehensive Python implementation of Geohash, designed for encoding and decoding geographic coordinates into a compact geohash string. This project is based on the Geohash algorithm described in [this blog post](http://mtcn.ko-me.com/%E9%96%A2%E6%95%B0%E3%80%81%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA/geohash%E9%96%A2%E6%95%B0).
 
 ## About This Project
-This project is dedicated to deepening the understanding of the Geohash algorithm and sharing that knowledge with others. The goal is not to create the "ultimate Geohash library," but rather to provide a resource for learning and exploration.
-That said, if someone—drawing inspiration from this project or others—manages to create the ultimate Geohash package, it would bring us boundless joy and satisfaction. We hope this project contributes, even in a small way, to that endeavor.
+This project is designed as a **sample implementation of Object-Oriented Programming (OOP)** and an **educational tool for understanding the Geohash algorithm**. It emphasizes consistency in design and algorithm transparency, rather than aiming for ultimate optimization or speed.
+
+#### Key Features:
+- Provides a clean, intuitive example of OOP principles.
+- Helps learners understand the Geohash algorithm by prioritizing readability and clarity.
 
 ## What is Geohash?
 

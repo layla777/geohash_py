@@ -1,3 +1,39 @@
+"""
+geohash_profiling.py
+
+This script is designed to profile and analyze the performance of the Geohash class operations.
+By running this script, you can pinpoint potential bottlenecks in the Geohash implementation
+through various encode, decode, and neighbor-related operations.
+
+How to use:
+1. Ensure the required Geohash implementation is accessible and this script has the necessary imports.
+2. Run the script in the terminal with customizable arguments, for example:
+   python geohash_profiling.py --repeat_count 5000 --lat_lng 37.7749 -122.4194 --geohash_str "9q8yyzjfwqr" --output profile_results.txt
+
+Arguments:
+- `--repeat_count`: Number of repetitions for testing (default: 10000). Affects profiling detail.
+- `--lat_lng`: Latitude and longitude coordinates for testing encode/decode operations
+               (default: [37.7749, -122.4194]).
+- `--geohash_str`: Geohash string for initialization and decode testing
+                   (default: "9q8yyzjfwqr").
+- `--output`: File path to save the profiling results. If not provided, results will
+              be displayed in the terminal (default: None).
+
+What the script does:
+1. Initializes the Geohash class with given latitude/longitude or geohash strings.
+2. Tests various Geohash class methods such as encode, decode, and neighbor calculation.
+3. Profiles the performance of these operations with `cProfile` and generates a
+   detailed analysis of the most time-consuming methods.
+
+Expected result:
+- A profiling summary showing the top methods consuming the most runtime with cumulative and per-call stats.
+- If specified, a detailed profile written to the output file.
+
+This script is especially useful for:
+- Developers optimizing Geohash performance.
+- Learning the runtime costs of various Geohash operations under different conditions.
+- Debugging bottlenecks in large-scale location-based systems.
+"""
 import argparse
 import cProfile
 import io
@@ -22,7 +58,6 @@ class GeohashProfiling:
         self.geohash_str = geohash_str
         self.output = output
         self.large_lat_lng = [3600.7749, -4320.4194]  # Large lat/lng values for normalization tests
-
 
     def test_operations(self):
         # 1. Initialization using latitude and longitude
@@ -49,7 +84,6 @@ class GeohashProfiling:
         # 6. Test neighbors
         for _ in range(self.repeat_count // 10):
             _ = geohash.neighbors(order=2)
-
 
     def profile_operations(self):
         # Start profiling

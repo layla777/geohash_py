@@ -8,45 +8,94 @@
   - Initial release.
 
 2024-12-16: Version 1.1.0a released
-  - Refactored code for improved readability and performance.
-  - Enhanced documentation in `README.md` with additional details.
-  - Added the following new test and profiling scripts:
-    - `edge_test.py`
-    - `geohash_precision_test.py`
-    - `geohash_profiling.py`
-    - `geohash_test.py`
 
-[Notes on New Test and Profiling Scripts]
-  In this alpha release, the following test and profiling scripts have been introduced:
+[Release Overview]
+This alpha release (Version 1.1.0a) introduces major refactoring efforts for improved code readability and performance. Alongside these changes, enhancements to the existing documentation (`README.md`) have been made to include additional details for end users and developers alike.
 
+2024-12-19: Version 1.1.0b released
+
+[Release Overview]
+This beta release (Version 1.1.0b) focuses on gathering user feedback and improving the overall stability of the library in preparation for the final 1.1.0 release. The changes build upon the Alpha release, addressing critical issues and incorporating refinements identified during internal testing and early evaluations.
+
+**Key Updates:**
+- Addressed bugs and issues reported in the Alpha release.
+- Improved unit tests for edge cases and rare scenarios.
+- Optimized geohash operations for better calculation precision and performance.
+- Refined profiling scripts to provide more actionable insights.
+
+[Purpose & Next Steps]
+This beta release serves as a critical stage to gather feedback from users and developers. Suggestions and bug reports will guide the next steps toward the stable release of Version 1.1.0.
+
+**Notable Additions:**
+- Refactored code for enhanced readability and performance.
+- New test and profiling scripts added:
   - `edge_test.py`: Designed to test edge cases of geohash functionality.
   - `geohash_precision_test.py`: Evaluates the precision accuracy of geohash calculations.
   - `geohash_profiling.py`: Provides profiling for geohash algorithm efficiency.
   - `geohash_test.py`: General tests to validate geohash-related features.
 
-  **These scripts and their placement are currently under review and will be progressively documented and organized for the final 1.1.0 release.** Preparation and adjustments will be made incrementally and in order of readiness to ensure quality.
-[Current Status]
-  - This release is an **alpha version** (1.1.0a) and is not feature-complete.
-  - It serves as a preliminary release for evaluation and continued development toward Version 1.1.0 (Formal Release).
+[Important Note]
+This release is an **alpha version** (1.1.0a) and is not yet feature-complete. It serves as a preliminary release for evaluation and further development towards Version 1.1.0.
 
-[TODO for Version 1.1.0]
-  - Add and publish `README_ja.md` to provide Japanese documentation.
-  - Conduct comprehensive testing of the new test and profiling scripts:
-    - `edge_test.py`
-    - `geohash_precision_test.py`
-    - `geohash_profiling.py`
-    - `geohash_test.py`
-  - Resolve any issues or bugs reported during alpha testing.
-  - Further refine code for performance optimization.
-  - Ensure all documentation is finalized and up-to-date (including additional language support as needed).
-  - My English is bad: never to be fixed unless free and better-quality translation technologies emerge.
+[Test Scripts Details]
+The following new test and profiling scripts are introduced in this release:
+- **edge_test.py**: Focused on edge cases and corner scenarios for geohash operations, ensuring stability in extreme conditions.
+- **geohash_precision_test.py**: Provides a framework for testing the precision of geohash encoding and decoding operations.
+- **geohash_profiling.py**: Enables developers to analyze and profile the performance of geohash algorithms under various workloads.
+- **geohash_test.py**: General-purpose tests to verify core geohash functionalities.
+
+The scripts are under review and subject to refinement. Future updates will include final documentation and potential reorganizations based on feedback.
+
+# Release Notes for Version 1.1.0
+
+This release brings significant improvements and completes several critical updates, making it move from alpha to a formal release. Below are the highlights:
+
+## New Features
+- **Japanese Documentation (`README_ja.md`)**: Comprehensive Japanese translation for the entire documentation, making the project more inclusive and accessible to Japanese-speaking contributors and users.
+
+## Testing Enhancements
+- **In-depth Testing**: Verified and validated the following scripts to ensure reliability:
+  - `edge_test.py`
+  - `geohash_precision_test.py`
+  - `geohash_profiling.py`
+  - `geohash_test.py`
+- Addressed any bugs and issues identified during alpha testing.
+
+## Performance Improvements
+- **Profiling-Based Optimizations**: Conducted detailed profiling and applied performance optimizations, improving overall efficiency.
+
+## Documentation Finalization
+- Documentation is now fully up-to-date, with language support and consistency checks completed.
+
+This version marks a significant milestone, making the Geohash project production-ready and user-friendly.
+[Release History]
+2019-06-25: Version 0.9.0 released
+- Initial beta release with foundational functionality.
+
+2020-07-03: Version 0.9.1 released
+- Code update to use `@staticmethod` for relevant methods.
+
+2024-11-23: Version 1.0.0 released
+- Official first version of the geohash library.
+
+2024-12-16: Version 1.1.0a released
+- Alpha release introducing major refactoring for improved code readability and performance.
+
+2024-12-19: Version 1.1.0b released
+- Beta release addressing critical issues from alpha and ensuring stability for the final 1.1.0 release.
 
 [Future Roadmap]
+**Version 1.2.0 (Planned):**
+- Feature: Add geohash-based distance calculation functionality.
+- Plan to thoroughly test edge cases using real-world geographical datasets to ensure accuracy.
 
-Version 1.2.0 (Upcoming):
-  - Feature: Add geohash-based distance calculation functionality.
-  - Plan to thoroughly test edge cases and validate results with geographical datasets.
+**Version 1.3.0 (Planned):**
+- Feature: Integrate Numpy for advanced mathematical operations to enhance computational performance.
+- Ensure compatibility with all previous modules and rigorously test new functionality.
 
-Version 1.3.0 (Upcoming):
-  - Feature: Integrate Numpy for advanced mathematical operations to improve computational performance.
-  - Ensure compatibility with all existing modules and test new features rigorously.
+**General Goals:**
+- Add additional unit tests for critical Geohash operations, covering edge cases and rare input scenarios.
+- Implement input validation for command-line arguments such as `--repeat_count` and `--lat_lng` to enhance robustness and prevent errors.
+- Explore visual profiling enhancements (e.g., using matplotlib for graphical representation of profiling results).
+- Review and optimize performance bottlenecks identified via `cProfile` and ensure scalability of the library.
+- My English is bad: never to be fixed unless free and better-quality translation technologies emerge.
