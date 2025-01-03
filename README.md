@@ -1,20 +1,20 @@
 
 # GeohashPy
 
-A comprehensive Python implementation of Geohash, designed for encoding and decoding geographic coordinates into a compact geohash string. This project is based on the Geohash algorithm described in [this blog post](http://mtcn.ko-me.com/%E9%96%A2%E6%95%B0%E3%80%81%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA/geohash%E9%96%A2%E6%95%B0).
+A Python library for encoding and decoding geographic coordinates using the Geohash algorithm. This implementation closely follows the principles outlined in [this blog post](http://mtcn.ko-me.com/%E9%96%A2%E6%95%B0%E3%80%81%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA/geohash%E9%96%A2%E6%95%B0), providing clarity and functionality for practical geohashing needs.
 
 ## About This Project
-This project is designed as a **sample implementation of Object-Oriented Programming (OOP)** and an **educational tool for understanding the Geohash algorithm**. It emphasizes consistency in design and algorithm transparency, rather than aiming for ultimate optimization or speed.
+This project serves both as an **educational resource for Object-Oriented Programming (OOP)** and a **robust implementation of the Geohash algorithm**. It focuses on clear design principles and precise algorithm implementation to ensure reliability and transparency.
 
 #### Key Features:
-- Provides a clean, intuitive example of OOP principles.
-- Helps learners understand the Geohash algorithm by prioritizing readability and clarity.
+- Demonstrates clear and practical OOP design patterns.
+- Offers an easy-to-understand and versatile Geohash algorithm implementation for learners and professionals alike.
 
 ## What is Geohash?
 
-Geohash is a hierarchical spatial data structure used for encoding geographic coordinates into compact strings. The key characteristics of Geohash include:
+Geohash is an algorithm and spatial data structure that encodes geographic coordinates into a compact, human-readable format. Its key characteristics include:
 
-- **Recursive Subdivision**: The Earth's surface is divided into smaller rectangular regions recursively, where each subdivision represents increasing levels of precision.
+- **Recursive Subdivision**: The Earth's surface is progressively divided into nested rectangular regions, with each subdivision offering higher precision.
 - **Rectangular Regions**: Each Geohash string maps to a rectangular area on the globe. Due to the algorithm's design, some regions may be irregular in shape.
 - **Compact Representation**: Geohash strings are concise, and their length determines the level of precision.
 
@@ -66,9 +66,9 @@ git clone https://github.com/layla777/geohash_py.git
 cd geohash_py
 ```
 
-No additional dependencies are required since this is a pure Python implementation.
+This library is implemented in pure Python and does not require any additional dependencies.
 
-## Usage
+## How to Use
 Here's how you can use the `Geohash` class to encode, decode, and normalize geohashes, initialize them with specific values, and understand latitude and longitude normalization.
 
 ### Initializing a Geohash Object
@@ -117,13 +117,13 @@ lat_lng = gh.decode()
 print('Decoded coordinates:', lat_lng)
 ```
 
-### Latitude and Longitude Normalization
+### Normalizing Latitude and Longitude
 
-Latitude and longitude values are automatically adjusted to ensure they fall within valid ranges. See [Technical Details](#technical-details).
+When working with geographic coordinates, latitude and longitude are automatically adjusted to their valid ranges during geohash processing. For details, refer to the [Technical Details](#technical-details) section.
 
 ### Getting Neighboring Geohashes
 
-You can retrieve neighboring geohashes for a given geohash:
+Retrieve neighboring geohashes surrounding a given geohash string, sorted clockwise from the top-left corner:
 
 ```python
 # Get neighbors
