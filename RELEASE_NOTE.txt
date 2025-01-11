@@ -8,23 +8,24 @@
   - Initial release.
 
 2024-12-16: Version 1.1.0a released
-
-[Release Overview]
-This alpha release (Version 1.1.0a) introduces major refactoring efforts for improved code readability and performance. Alongside these changes, enhancements to the existing documentation (`README.md`) have been made to include additional details for end users and developers alike.
+  - Alpha release introducing major refactoring for improved code readability and performance.
 
 2024-12-19: Version 1.1.0b released
+  - Beta release addressing critical issues from alpha and ensuring stability for the final 1.1.0 release.
+
+2025-01-03: Version 1.1.0 released
 
 [Release Overview]
-This beta release (Version 1.1.0b) focuses on gathering user feedback and improving the overall stability of the library in preparation for the final 1.1.0 release. The changes build upon the Alpha release, addressing critical issues and incorporating refinements identified during internal testing and early evaluations.
-
+This release (Version 1.1.0) integrates all prior fixes, optimizations, and testing to deliver a stable and production-ready Geohash library version, officially concluding the alpha and beta phases.
 **Key Updates:**
 - Addressed bugs and issues reported in the Alpha release.
+- Fixed scalar edge-case handling in `_normalize_angle_180`.
 - Improved unit tests for edge cases and rare scenarios.
 - Optimized geohash operations for better calculation precision and performance.
-- Refined profiling scripts to provide more actionable insights.
+- Significant performance improvement achieved through profiling and algorithm optimizations.
 
 [Purpose & Next Steps]
-This beta release serves as a critical stage to gather feedback from users and developers. Suggestions and bug reports will guide the next steps toward the stable release of Version 1.1.0.
+Version 1.1.0 is the first stable release of this series, marking the end of prior alpha and beta development stages. Feedback from users will inform small updates in future minor releases.
 
 **Notable Additions:**
 - Refactored code for enhanced readability and performance.
@@ -35,7 +36,7 @@ This beta release serves as a critical stage to gather feedback from users and d
   - `geohash_test.py`: General tests to validate geohash-related features.
 
 [Important Note]
-This release is an **alpha version** (1.1.0a) and is not yet feature-complete. It serves as a preliminary release for evaluation and further development towards Version 1.1.0.
+Version 1.1.0 delivers a complete and stable release, incorporating feedback and fixes from earlier stages to ensure readiness for production use.
 
 [Test Scripts Details]
 The following new test and profiling scripts are introduced in this release:
@@ -48,10 +49,10 @@ The scripts are under review and subject to refinement. Future updates will incl
 
 # Release Notes for Version 1.1.0
 
-This release brings significant improvements and completes several critical updates, making it move from alpha to a formal release. Below are the highlights:
+This release brings significant improvements and completes several critical updates to finalize the production version. Below are the highlights:
 
 ## New Features
-- **Japanese Documentation (`README_ja.md`)**: Comprehensive Japanese translation for the entire documentation, making the project more inclusive and accessible to Japanese-speaking contributors and users.
+- **Japanese Documentation (`README_ja.md`)**: Enhanced structure and clarity in the Japanese translation, providing better accessibility for Japanese-speaking contributors and users.
 
 ## Testing Enhancements
 - **In-depth Testing**: Verified and validated the following scripts to ensure reliability:
@@ -59,43 +60,40 @@ This release brings significant improvements and completes several critical upda
   - `geohash_precision_test.py`
   - `geohash_profiling.py`
   - `geohash_test.py`
-- Addressed any bugs and issues identified during alpha testing.
+- Addressed any bugs and issues identified during alpha and beta testing.
 
 ## Performance Improvements
 - **Profiling-Based Optimizations**: Conducted detailed profiling and applied performance optimizations, improving overall efficiency.
 
 ## Documentation Finalization
-- Documentation is now fully up-to-date, with language support and consistency checks completed.
+- Documentation is now fully up-to-date, with the English `README.md` updated to align with the final release of version 1.1.0. Language support and consistency checks have been completed.
 
 This version marks a significant milestone, making the Geohash project production-ready and user-friendly.
-[Release History]
-2019-06-25: Version 0.9.0 released
-- Initial beta release with foundational functionality.
 
-2020-07-03: Version 0.9.1 released
-- Code update to use `@staticmethod` for relevant methods.
-
-2024-11-23: Version 1.0.0 released
-- Official first version of the geohash library.
 
 2024-12-16: Version 1.1.0a released
-- Alpha release introducing major refactoring for improved code readability and performance.
+- Major refactoring for improved readability and performance.
 
 2024-12-19: Version 1.1.0b released
-- Beta release addressing critical issues from alpha and ensuring stability for the final 1.1.0 release.
+- Critical fixes and stability improvements for the final 1.1.0 release.
+
+2025-01-03: Version 1.1.0 released
+- The first stable and production-ready release incorporating all prior fixes, optimizations, and performance enhancements.
 
 [Future Roadmap]
-**Version 1.2.0 (Planned):**
-- Feature: Add geohash-based distance calculation functionality.
+**Version 1.1.1 (Planned):**
 - Plan to thoroughly test edge cases using real-world geographical datasets to ensure accuracy.
-
-**Version 1.3.0 (Planned):**
-- Feature: Integrate Numpy for advanced mathematical operations to enhance computational performance.
-- Ensure compatibility with all previous modules and rigorously test new functionality.
-
-**General Goals:**
 - Add additional unit tests for critical Geohash operations, covering edge cases and rare input scenarios.
 - Implement input validation for command-line arguments such as `--repeat_count` and `--lat_lng` to enhance robustness and prevent errors.
+- Introduce more Pythonic getter and setter methods to improve code readability and usability.
+- Deprecate older `get_geohash` and `set_geohash` methods with plans for full removal in version 2.0.
 - Explore visual profiling enhancements (e.g., using matplotlib for graphical representation of profiling results).
 - Review and optimize performance bottlenecks identified via `cProfile` and ensure scalability of the library.
-- My English is bad: never to be fixed unless free and better-quality translation technologies emerge.
+
+
+
+
+**Version 2.0.0 (Planned):**
+- Feature: Integrate Numpy for advanced mathematical operations to enhance computational performance.
+- Ensure compatibility with all previous modules and rigorously test new functionality.
+- Plan to support only Python 3.10+ starting from version 2.0.

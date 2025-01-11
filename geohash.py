@@ -449,9 +449,13 @@ class Geohash:
     """
     @staticmethod
     def _normalize_angle_180(lng: float) -> float:
-        lng_is_negative = lng < 0
-        lng %= 360
-        return lng - 360 if lng > 180 else -lng if lng_is_negative else lng
+        is_negative = lng < 0  # Extract sign information
+        lng = lng % 360  # Normalize to [0, 360)
+        if lng > 180:
+            lng -= 360  # Shift angles > 180
+        if is_negative and lng == 180:
+            return -180  # Handle edge case for -180
+        return lng
 
     @staticmethod
     def _normalize_lat(lat: float) -> float:

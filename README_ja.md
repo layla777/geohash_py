@@ -1,31 +1,29 @@
-
 # GeohashPy
 
-包括的な Python 実装としての Geohash．この実装では，地理座標をコンパクトな Geohash 文字列にエンコードおよびデコードすることができます．本プロジェクトは，[このブログ記事](http://mtcn.ko-me.com/%E9%96%A2%E6%95%B0%E3%80%81%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA/geohash%E9%96%A2%E6%95%B0) で説明されている Geohash アルゴリズムに基づいています．
+GeohashPy は，Geohash の機能を Python によって包括的に実装したパッケージです．  
+このパッケージは，地理座標を簡潔な文字列形式にエンコードおよびデコードするための Geohash アルゴリズムを主要なテーマとしています．なお，本プロジェクトは，[このブログ記事](http://mtcn.ko-me.com/%E9%96%A2%E6%95%B0%E3%80%81%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA/geohash%E9%96%A2%E6%95%B0) で説明されている Geohash アルゴリズムに基づいています．
 
 ## このプロジェクトについて
-このプロジェクトは，**オブジェクト指向プログラミング（OOP）のサンプル実装**および**Geohash アルゴリズムを理解するための教育ツール**として設計されています．最適化や速度よりも一貫性のある設計とアルゴリズムの透明性を重視しています．
+このプロジェクトは，**オブジェクト指向プログラミング（OOP）のサンプル実装**および**Geohash アルゴリズムを理解するための教育ツール**として設計されています．最適化や速度よりも一貫性のある設計とアルゴリズムの透明性を重視しています（とはいえ，この目的を充足した上での可能な限りの高速化を追求していない訳ではありません）．
 
 #### 主な特徴：
-- OOP の原則をわかりやすく，直感的に示すクリーンな例を提供．
-- 読みやすさと明確さを重視して，学習者が Geohash アルゴリズムを理解しやすくする．
+- OOP の原則をわかりやすく，直感的に示すクリーンな実装例を提供しています．
+- 読みやすさと明確さを重視して，学習者が Geohash アルゴリズムを理解する一助としています．
 
 ## Geohash とは？
 
-Geohash は，地理座標をコンパクトな文字列にエンコードするために使用される階層的な空間データ構造です．Geohash の主な特徴は以下の通りです：
+Geohash は，地球上の緯度・経度（地理座標）を階層的かつコンパクトな文字列で表現する空間データ構造です．この構造により，地理的な近接性を文字列で簡便に表すことができます．  
+Geohash の主な特徴は以下の通りです：
 
-- **再帰的な分割**：地球の表面が小さな長方形の領域に再帰的に分割され，それぞれの分割によって精度が向上します．
-- **長方形の領域**：各 Geohash 文字列は地球上の長方形の領域に対応しています．しかし，アルゴリズムの構造上，一部の領域は不規則な形状になることがあります．
-- **コンパクトな表現**：Geohash 文字列は非常に簡潔で，その長さが精度を決定します．
-
-### 不規則な長方形の例
-
-例えば，赤道をまたぐ領域を表す Geohash 文字列を考えると，極付近に移動するに従ってかなりサイズが異なる長方形になる場合があり，不規則性が特徴的です．
+- **再帰的な分割**：Geohash は，地球表面を東西・南北方向に再帰的に分割し，細分化された（近似的には長方形としてとらえられる）領域をハッシュ値として符号化します．厳密には，極付近や赤道など一部の地域では形状が不規則になる場合がありますが，この仕組みにより，位置情報の効率的な保存や検索が可能になります．
+- **コンパクトな文字列表現**：Geohash 文字列においては，桁数によってエンコード精度が決定されます．一般に 12 桁の Geohash は，緯度・経度を数 cm 単位で細かく表現するのに十分な精度を持っています．また，近接する領域や包含する領域との間で類似した文字列となる性質を持っています．
+- **データーベースとの相性のよさ**：緯度・経度を直接扱うよりも，Geohash エンコードを用いることでデータベース検索が効率化され，用途によっては速度が大幅に向上します．これにより，位置情報を使ったクエリの処理に適したデータ構造となります．
 
 ### 精度テーブル
 
 以下の表は，異なる長さの Geohash 文字列に対応するおおよその解像度を示しています：
 > **注意**：この表に記載されている解像度は赤道付近でのおおよその値を表しています．緯度が高くなり極に近づくにつれて，地球の曲率の影響で経度方向（東西方向）の解像度が細かくなります．
+
 | 長さ    | 解像度（緯度 x 経度）        |
 |---------|------------------------------|
 | 1       | ±2500 km x ±5000 km          |
@@ -39,12 +37,9 @@ Geohash は，地理座標をコンパクトな文字列にエンコードする
 | 9       | ±2.4 m x ±4.8 m              |
 | 10      | ±0.6 m x ±1.2 m              |
 | 11      | ±0.07 m x ±0.15 m            |
+| 12      | ±0.018 m x ±0.038 m          |
 
 ライブラリではデフォルトで精度が 11 に設定されていますが，ユーザーが要件に応じてカスタムの長さを指定することも可能です．
-
-### ライブラリ設計の理念
-
-このライブラリは，不規則な長方形を表現するものを含む，全ての有効な Geohash 文字列を受け入れます．この不規則性はアルゴリズムの自然な結果であり，地理的空間を柔軟に表現できる点で重要な特性です．
 
 ## 機能
 
@@ -65,151 +60,153 @@ git clone https://github.com/layla777/geohash_py.git
 cd geohash_py
 ```
 
-この実装は純粋な Python に基づいているため，追加の依存関係は必要ありません．
-## Usage
-Here's how you can use the `Geohash` class to encode, decode, and normalize geohashes, initialize them with specific values, and understand latitude and longitude normalization.
+この実装は純粋な Python に基づいているため，現在は追加のライブラリを必要としません．
+* ただし，サンプルコードでは Matplotlib を使用しています．
+* 将来的な拡張において，他のライブラリ（例: Numpy）を必要とする可能性があります．
+* 依存ライブラリは requirements.txt に記載されています．必要に応じて次のコマンドを実行してください：
+  ```
+  pip install -r requirements.txt
+  ```
+## 使い方
 
-### Initializing a Geohash Object
+`Geohash` クラスを使用して geohashをエンコード，デコード，および正規化する方法や，特定の値で初期化する方法，緯度・経度の正規化方法を示します．
 
-The `Geohash` object should be initialized using one of the recommended methods:
+### 入力値に関する仕様
 
-#### **Recommended**: Using Latitude and Longitude (`init_with_lat_lng`)
+#### 緯度と経度
+緯度と経度の入力値については，システムが自動で有効な範囲内になるよう調整します．たとえば，緯度が -90° から +90° の範囲を超えて入力された場合，対応する範囲内に変換されます（例：91° → 90°）．詳細は[技術詳細](#技術詳細)を確認してください．
+
+例：  
+```python
+gh.set_lat_lng(91.0, -200.0)  # 緯度 91.0 → 90.0，経度 -200.0 → 160.0 に変換
+print(gh.get_lat_lng())  # (90.0, 160.0)
+```
+
+#### Geohash 文字列
+Geohash 文字列として不適切な文字列を指定した場合はエラーが発生します．ただし，以下の条件を満たしていれば，通常のアルゴリズムでは生成されないような geohash 文字列でも指定可能です：
+
+- Geohash 文字列は文字 `{0–9, b–z（i, l, oを除く）}` のみからなる必要があります．
+- 最低 1 文字の長さが必須です．
+
+例：
+```python
+gh.set_geohash('ezs42p')  # 正常
+gh.set_geohash('123@abc"')  # エラー: 不正な文字 '@' を含む
+gh.set_geohash('')  # エラー: 空の文字列は無効
+```
+
+ただし，通常のアルゴリズムでは生成されない形式の文字列については，全て想定どおりに処理されることを保証するものではありません（現在のバージョンでは未検証の部分が残っています）．今後のバージョンでの正式サポート状況についてはドキュメントやリリースノートを参照してください．
+
+### Geohash オブジェクトの初期化
+
+`Geohash` オブジェクトは，以下の推奨される方法のいずれかを使用して初期化してください：
+
+#### **推奨**: 緯度と経度を使用 (`init_with_lat_lng`)
 
 ```python
 from geohash import Geohash
 
-# Initialize with latitude and longitude
-lat_lng = [37.7749, -122.4194]  # San Francisco, CA
+# 緯度と経度を使用して初期化
+lat_lng = [37.7749, -122.4194]  # サンフランシスコ, カリフォルニア州
 length = 8
 gh = Geohash.init_with_lat_lng(lat_lng=lat_lng, length=length)
-print('Generated geohash:', gh.get_geohash())
+print('生成された geohash:', gh.get_geohash())
 ```
 
-#### **Recommended**: Using a Geohash String (`init_with_geohash`)
+#### **推奨**:  geohash文字列を使用 (`init_with_geohash`)
 
 ```python
-# Initialize with a geohash string
+#  geohash文字列を使用して初期化
 geohash_str = '9q8yy'
 gh = Geohash.init_with_geohash(geohash_str)
-print('Geohash:', gh.get_geohash())
+print(' geohash:', gh.get_geohash())
 ```
 
-### Encoding Coordinates
+### **Getter および setter**
 
-You can encode new coordinates into the existing geohash object:
+- **Geohash 文字列を取得 (`get_geohash`)**  
+  Geohash オブジェクトが保持する geohash 文字列を取得する場合は，`get_geohash`メソッドを使用します．
+
+  ```python
+  print(gh.get_geohash())  # '9q8yyk8yt'
+  ```
+
+- **Geohash文字列を設定 (`set_geohash`)**  
+  Geohash オブジェクトに新たな geohash 文字列を指定する場合は，`set_geohash`メソッドを使用します．
+
+  ```python
+  gh.set_geohash('ezs42')
+  print(gh.get_geohash())  # 'ezs42'
+  ```
+  `get_geohash`は安全に文字列を参照するため，`set_geohash`は文字列を動的に更新する際に便利です．
+
+### 座標のエンコード
+
+既存の Geohash オブジェクトに新しい座標をエンコードできます：
 
 ```python
-# Encode new coordinates
-new_lat_lng = [34.0522, -118.2437]  # Los Angeles, CA
+# 新しい座標をエンコード
+new_lat_lng = [34.0522, -118.2437]  # ロサンゼルス, カリフォルニア州
 gh.encode_with_lat_lng(new_lat_lng, length)
-print('New geohash:', gh.get_geohash())
+print('新しい geohash:', gh.get_geohash())
 ```
 
-### Decoding a Geohash
+### **geohash のデコード**
 
-You can decode a geohash string back into latitude and longitude:
+- **緯度・経度の区間を取得 (`decode_to_interval`)**  
+  Geohash 文字列を緯度・経度の区間（範囲）にデコードする場合は，`decode_to_interval`メソッドを使用します．この区間は，geohash 文字列が表す領域を示します．
+
+  ```python
+  lat_interval, lng_interval = gh.decode_to_interval()
+  print(lat_interval)  # (42.60498046875, 42.607421875)
+  print(lng_interval)  # (-5.60302734375, -5.6005859375)
+  ```
+
+- **緯度・経度を取得 (`decode`)**  
+  Geohash 文字列をデコードして緯度・経度を取得する場合は，`decode`メソッドを使用します．このメソッドは，`decode_to_interval` で得られた領域の中心点を返します．
+
+  ```python
+  lat, lng = gh.decode()
+  print(lat)  # 42.605
+  print(lng)  # -5.602
+  ```
+
+### 隣接する geohash の取得
+
+指定した Gohash オブジェクトに対して，隣接する領域の geohash 文字列をリストで取得できます：
 
 ```python
-# Decode geohash
-lat_lng = gh.decode()
-print('Decoded coordinates:', lat_lng)
-```
-
-### Latitude and Longitude Normalization
-
-Latitude and longitude values are automatically adjusted to ensure they fall within valid ranges. See [Technical Details](#technical-details).
-
-### Getting Neighboring Geohashes
-
-You can retrieve neighboring geohashes for a given geohash:
-
-```python
-# Get neighbors
+# 隣接する geohash を取得
 neighbors = gh.neighbors(order=1)
-print('Neighboring geohashes:', neighbors)
+print('隣接する geohash:', neighbors)
 ```
 
-## API Reference
+---
 
-### Geohash
+## 技術詳細
 
-#### `__init__` method *(Internal Use Only)*
+### 緯度と経度の正規化
 
-```python
-__init__()
-```
+- **経度の正規化**：経度の値は，モジュラー演算を使用して-180度から180度の範囲内に収まるよう調整されます．例：
+  - 経度が `190` の場合，`-170` に正規化されます．
+  - 経度が `-200` の場合，`160` に正規化されます．
 
-This internal constructor initializes a Geohash object with the default geohash value `'s0000000000'`. Direct usage is discouraged; use `init_with_lat_lng` or `init_with_geohash` for custom initialization.
+- **緯度の正規化**：緯度の値は，-90度から90度の範囲内に収まるよう調整されます．この範囲を超えた値は，境界で「折り返され」，中心に向かって調整されます．例：
+  - 緯度が `-95` の場合，`-85` に正規化されます．
+  - 緯度が `100` の場合，`80` に正規化されます．
 
-#### `get_geohash` method
+これにより，地球上の地理的座標が現実的で正確な表現となることが保証されます．
 
-```python
-get_geohash() -> str
-```
+---
 
-Returns the current geohash string.
+## ライセンス
 
-#### `set_geohash` method
+このプロジェクトは MIT ライセンスの下でライセンスされています．詳細は [LICENSE](LICENSE) ファイルをご確認ください．
 
-```python
-set_geohash(s: str)
-```
+---
 
-Sets a new geohash string.
+## 謝辞
 
-#### `encode_with_lat_lng` method
+この実装は，[このブログ記事](http://mtcn.ko-me.com/%E9%96%A2%E6%95%B0%E3%80%81%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA/geohash%E9%96%A2%E6%95%B0) で説明されている Geohash アルゴリズムを参考としています．
 
-```python
-encode_with_lat_lng(lat_lng: List[Union[float, int]], length: int = 11)
-```
-
-Encodes the provided latitude and longitude into a geohash string of the specified length.
-
-#### `decode_to_interval` method
-
-```python
-decode_to_interval() -> List[Tuple[float, float]]
-```
-
-Decodes the geohash to its latitude and longitude interval.
-
-#### `decode` method
-
-```python
-decode() -> List[float]
-```
-
-Decodes the geohash to the midpoint of its latitude and longitude interval.
-
-#### `neighbors` method
-
-```python
-neighbors(order: int = 1) -> List[str]
-```
-
-Returns a list of neighboring geohashes around the current geohash.
-
-## Technical Details
-
-### Latitude and Longitude Normalization
-
-- **Longitude Normalization**: Longitude values are wrapped within the range of -180 to 180 degrees using modular arithmetic. For example:
-  - A longitude of `190` normalizes to `-170`.
-  - A longitude of `-200` normalizes to `160`.
-
-- **Latitude Normalization**: Latitude values are wrapped within the range of -90 to 90 degrees. If the value exceeds these bounds, it "bounces back" toward the center by reflecting over the boundary. For example:
-  - A latitude of `-95` normalizes to `-85`.
-  - A latitude of `100` normalizes to `80`.
-
-This ensures realistic and accurate representation of geographic coordinates on the globe.
-
-## License
-
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
-## Acknowledgments
-
-This implementation is inspired by the Geohash algorithm explained in [this blog post](http://mtcn.ko-me.com/%E9%96%A2%E6%95%B0%E3%80%81%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA/geohash%E9%96%A2%E6%95%B0).
-
-Feel free to contribute to this project by opening issues or submitting pull requests.
+問題や提案を追加したりプルリクエストを送ることで，このプロジェクトに気軽に参加してください．
