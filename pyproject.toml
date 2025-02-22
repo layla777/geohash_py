@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=62", "wheel"]  # Tools required to build the package
+build-backend = "setuptools.build_meta" # Backend build system
+
+[project]
+name = "geohash_py"                     # Name of the package
+version = "1.2.0"                       # Version of the package
+description = "A Geohash implementation in Python." # Short description
+readme = "README.md"                    # README file used as a long description
+license = {file = "LICENSE"}            # License file
+authors = [
+    {name = "IDEGUTI Masaya", email = "fleetwood@mac.com"} # Author information
+]
+classifiers = [                         # Classifications of the package
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [                        # Dependencies required for the package
+    "bitarray"
+]
+requires-python = ">=3.8"               # Required Python version
+
+[project.urls]
+Homepage = "https://github.com/layla777/geohash_py"   # Homepage URL

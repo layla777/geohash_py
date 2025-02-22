@@ -33,7 +33,7 @@ for educational purposes as well as practical applications in geospatial data an
 import matplotlib.pyplot as plt
 
 # Import required modules
-from geohash import *
+from geohash_py import Geohash
 
 # Define the Geohash string to test precision
 geohash = 'ezs42e44yxpy'
@@ -62,7 +62,7 @@ for i in range(len(geohash)):
     # Print the results for the current Geohash substring
     print(f'{i + 1:02} char(s) Geohash range: Latitude = {lat}, Longitude = {lng}')
     print(f'{i + 1:02} char(s) shrinking rate: Latitude range = {lat[1] - lat[0]}, Longitude range = {lng[1] - lng[0]}')
-    print(f'{i + 1:02} char(s) Geohash bitstream: {Geohash._geohash_to_bits(test_geohash):b}')
+    print(f'{i + 1:02} char(s) Geohash bitstream: {Geohash._geohash_to_bits(test_geohash).to01()}')
 
 # Plot results with matplotlib
 plt.figure(figsize=(10, 6))

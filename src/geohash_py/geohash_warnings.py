@@ -1,0 +1,2 @@
+class GeohashWarning(Warning):
+    pass

@@ -47,53 +47,35 @@ The following new test and profiling scripts are introduced in this release:
 
 The scripts are under review and subject to refinement. Future updates will include final documentation and potential reorganizations based on feedback.
 
-# Release Notes for Version 1.1.0
+---
 
-This release brings significant improvements and completes several critical updates to finalize the production version. Below are the highlights:
+# Release Notes for Version 1.2.0
 
-## New Features
-- **Japanese Documentation (`README_ja.md`)**: Enhanced structure and clarity in the Japanese translation, providing better accessibility for Japanese-speaking contributors and users.
+This release begins the 1.2.x series of the Geohash library with a focus on improving usability, maintaining simplicity, and enhancing the codebase.
 
-## Testing Enhancements
-- **In-depth Testing**: Verified and validated the following scripts to ensure reliability:
-  - `edge_test.py`
-  - `geohash_precision_test.py`
-  - `geohash_profiling.py`
-  - `geohash_test.py`
-- Addressed any bugs and issues identified during alpha and beta testing.
+## Key Updates and Changes
+1. **Technical Decision: No Numpy Support**
+   - The introduction of Numpy was explored as a means of improving performance but was ultimately deemed unsuitable for the project due to:
+     1. The sequential nature of the Geohash algorithm, where each step depends on the previous step's result, making vectorized operations inappropriate.
+     2. The cost-to-benefit ratio of introducing Numpy was not justified, as current implementations provide adequate performance and maintain higher code simplicity.
+   This decision reflects our commitment to a clear and maintainable codebase.
 
-## Performance Improvements
-- **Profiling-Based Optimizations**: Conducted detailed profiling and applied performance optimizations, improving overall efficiency.
+2. **Deprecation and Removal of Legacy Methods**
+   - The now-deprecated `get_geohash` and `set_geohash` methods have been removed in this version to encourage the use of more Pythonic getter and setter implementations.
 
-## Documentation Finalization
-- Documentation is now fully up-to-date, with the English `README.md` updated to align with the final release of version 1.1.0. Language support and consistency checks have been completed.
+3. **Improved Testing and Examples**
+   - Added new examples under the `examples/` directory to help users understand common use cases.
+   - Expanded CI-integrated testing to ensure reliability and stability on each code commit.
 
-This version marks a significant milestone, making the Geohash project production-ready and user-friendly.
+---
 
+# Future Roadmap
 
-2024-12-16: Version 1.1.0a released
-- Major refactoring for improved readability and performance.
+**Version 1.2.x**
+- Continue refining and extending test coverage, especially for edge cases.
+- Expand examples to include more practical real-world applications.
+- Finalize documentation updates, providing clearer guidelines for users and contributors.
 
-2024-12-19: Version 1.1.0b released
-- Critical fixes and stability improvements for the final 1.1.0 release.
-
-2025-01-03: Version 1.1.0 released
-- The first stable and production-ready release incorporating all prior fixes, optimizations, and performance enhancements.
-
-[Future Roadmap]
-**Version 1.1.1 (Planned):**
-- Plan to thoroughly test edge cases using real-world geographical datasets to ensure accuracy.
-- Add additional unit tests for critical Geohash operations, covering edge cases and rare input scenarios.
-- Implement input validation for command-line arguments such as `--repeat_count` and `--lat_lng` to enhance robustness and prevent errors.
-- Introduce more Pythonic getter and setter methods to improve code readability and usability.
-- Deprecate older `get_geohash` and `set_geohash` methods with plans for full removal in version 2.0.
-- Explore visual profiling enhancements (e.g., using matplotlib for graphical representation of profiling results).
-- Review and optimize performance bottlenecks identified via `cProfile` and ensure scalability of the library.
-
-
-
-
-**Version 2.0.0 (Planned):**
-- Feature: Integrate Numpy for advanced mathematical operations to enhance computational performance.
-- Ensure compatibility with all previous modules and rigorously test new functionality.
-- Plan to support only Python 3.10+ starting from version 2.0.
+**Version 2.0 (Indefinite)**
+- The initial idea was to introduce Numpy dependency and advanced operations; however, due to the nature of the Geohash algorithm, this direction is currently suspended. As a result, the 2.0 release and plans for supporting Numpy have been shelved indefinitely.
+- Focus will remain on ensuring the core library remains performant and extensible using pure Python.

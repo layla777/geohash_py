@@ -8,7 +8,7 @@
 # 2. The script computes geohashes for each coordinate over precision levels from 1 to 12.
 # 3. For each precision level, the geohash value is displayed along with its precision.
 
-from geohash import Geohash
+from geohash_py import Geohash
 
 # Preparing test cases
 test_cases = [
@@ -28,5 +28,5 @@ for lat_lng, description in test_cases:
     print(f'{lat_lng}: {description}')
     for precision in range(1, 13):
         gh = Geohash.init_with_lat_lng(lat_lng, precision)
-        print(f'  precision {precision}: {gh.get_geohash()}')
+        print(f'  precision {precision}: {gh.geohash}')
     print()
